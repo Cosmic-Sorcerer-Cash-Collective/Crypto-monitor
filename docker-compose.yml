@@ -29,7 +29,7 @@ services:
       - "5173:5173"
     environment:
       - REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
-  
+
   nginx-prod:
     container_name: nginx-prod
     image: nginx:latest
@@ -41,3 +41,16 @@ services:
     depends_on:
       - backend
       - frontend
+      - pgadmin
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
