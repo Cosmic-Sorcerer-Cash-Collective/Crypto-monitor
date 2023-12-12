@@ -29,3 +29,15 @@ services:
       - "5173:5173"
     environment:
       - REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
+  
+  nginx-prod:
+    container_name: nginx-prod
+    image: nginx:latest
+    restart: always
+    volumes:
+      - ./deploy/nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
