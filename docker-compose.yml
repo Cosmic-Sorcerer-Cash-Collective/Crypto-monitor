@@ -21,3 +21,11 @@ services:
       - ./deploy/database/database.sql:/docker-entrypoint-initdb.d/data.sql
     ports:
       - 5432:5432
+
+  frontend:
+    container_name: frontend-crypto-monitor
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
