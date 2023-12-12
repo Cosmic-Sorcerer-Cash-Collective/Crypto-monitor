@@ -7,3 +7,17 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  db:
+    container_name: database-postgres
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    tty: true
+    volumes:
+      - ./deploy/database/database.sql:/docker-entrypoint-initdb.d/data.sql
+    ports:
+      - 5432:5432
