@@ -11,4 +11,4 @@ export function Loader() {
         </Flex>
       </Box>
     );
-  };
+}
