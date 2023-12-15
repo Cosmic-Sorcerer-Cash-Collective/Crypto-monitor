@@ -19,10 +19,19 @@ router.get('/create-container', async (req: express.Request, res: express.Respon
     }
   });
 
+interface listContainerProps {
+    id: string;
+    name: string;
+}
+
 router.get('/list-containers', async (req: express.Request, res: express.Response) => {
     try {
       const containers = await docker.listContainers();
-      res.status(200).json({ success: true, containers });
+      const containersList : listContainerProps[] = containers.map((container) => ({
+        id: container.Id,
+        name: container.Names[0],
+      }));
+      res.status(200).json({ success: true, containersList });
     } catch (error) {
       console.error('Erreur lors de la liste des conteneurs :', error);
       res.status(500).json({ success: false, message: 'Erreur lors de la liste des conteneurs.' });

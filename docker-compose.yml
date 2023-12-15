@@ -28,7 +28,7 @@ services:
     ports:
       - "5173:5173"
     environment:
-      - REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
+      - VITE_API_URL=${REACT_APP_BACKEND_URL}
 
   nginx-prod:
     container_name: nginx-prod

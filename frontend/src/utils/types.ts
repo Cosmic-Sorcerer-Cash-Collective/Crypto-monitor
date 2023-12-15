@@ -1,7 +1,7 @@
 export interface Instance {
     id: number;
-    title: string;
-    description: string;
-    price: number;
-    percentage: number;
+    name: string;
+    description?: string;
+    price?: number;
+    percentage?: number;
 }

@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 export function useFetch(
   url: string,
-  body: Object = {},
   method: "POST" | "GET" | "PUT" | "DELETE" = "POST",
+  body: Object = {},
   header: HeadersInit | undefined = {
     "Content-Type": "application/json",
   }
@@ -17,7 +17,7 @@ export function useFetch(
       await fetch(url, {
         method: method,
         headers: header,
-        body: JSON.stringify(body),
+        body: method === "GET" ? undefined : JSON.stringify(body),
       })
         .then((res) => res.json())
         .then((data) => {

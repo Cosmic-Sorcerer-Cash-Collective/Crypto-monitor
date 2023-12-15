@@ -1,8 +1,11 @@
+import { MyContextProvider } from './context/MyContext'
 import { Root } from './page/root'
 
 function App() {
   return (
-    <Root />
+    <MyContextProvider>
+      <Root />
+    </MyContextProvider>
   )
 }
 

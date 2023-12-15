@@ -3,8 +3,6 @@ interface IConfig {
     name: string;
 }
 
-
-
 export const createContainer = (config: IConfig)  => ({
     image: config.image,
     name: config.name,
