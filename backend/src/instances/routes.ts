@@ -5,11 +5,15 @@ import { createContainer } from "./configInstance";
 const router = express.Router();
 const docker = new Docker();
 
-router.get('/create-container', async (req: express.Request, res: express.Response) => {
+router.post('/create-container', async (req: express.Request, res: express.Response) => {
+  const { name } = req.body;
+  if (!name) {
+    return res.status(400).json({ success: false, message: 'Le nom du conteneur est requis.' });
+  }
     try {
       const container = await docker.createContainer(createContainer({
         image: 'node:20-alpine3.17',
-        name: 'node-container',
+        name: name,
         }));
       await container.start();
       res.status(200).json({ success: true, message: 'Conteneur créé avec succès.' });
