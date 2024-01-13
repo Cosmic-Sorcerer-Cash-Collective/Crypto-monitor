@@ -2,14 +2,17 @@ version: '3.7'
 services:
   backend:
     container_name: backend-crypto-monitor
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
     ports:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
   db:
-    container_name: database-postgres
+    container_name: database-crypto-monitor
     image: postgres:15
     restart: always
     environment:
@@ -27,11 +30,12 @@ services:
     build: ./frontend
     ports:
       - "5173:5173"
+    restart: always
     environment:
       - VITE_API_URL=${REACT_APP_BACKEND_URL}
 
-  nginx-prod:
-    container_name: nginx-prod
+  nginx:
+    container_name: nginx-crypto-monitor
     image: nginx:latest
     restart: always
     volumes:
@@ -44,7 +48,7 @@ services:
       - pgadmin
 
   pgadmin:
-    container_name: pgadmin
+    container_name: pgadmin-crypto-monitor
     image: dpage/pgadmin4
     restart: always
     environment:

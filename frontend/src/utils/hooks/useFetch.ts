@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export function useFetch(
   url: string,
   method: "POST" | "GET" | "PUT" | "DELETE" = "POST",
-  body: Object = {},
+  body: unknown = {},
   header: HeadersInit | undefined = {
     "Content-Type": "application/json",
   }
@@ -13,7 +13,7 @@ export function useFetch(
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const useFetch = async () => {
+    const foo = async () => {
       await fetch(url, {
         method: method,
         headers: header,
@@ -32,7 +32,7 @@ export function useFetch(
         });
     };
     if (!values) {
-      useFetch();
+      foo();
     }
   }, [values]);
   return { values, loading, error };

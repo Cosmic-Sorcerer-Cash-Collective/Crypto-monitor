@@ -13,6 +13,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
 
 const MenuItem = ({ children } : { children: React.ReactNode }) => (
   <Box
@@ -31,6 +32,7 @@ const MenuItem = ({ children } : { children: React.ReactNode }) => (
 export function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isMobileView, setIsMobileView] = useState(window.innerWidth < 768);
+  const navigate = useNavigate();
 
   const handleResize = () => {
     setIsMobileView(window.innerWidth < 768);
@@ -41,21 +43,26 @@ export function Header() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const itemClick = () => (
+    <>
+      <Box onClick={() => navigate('/')}>
+        <MenuItem>Home</MenuItem>
+      </Box>
+      <Box onClick={() => navigate('/contact')}>
+        <MenuItem>Contact</MenuItem>
+      </Box>
+    </>
+  );
+
   const renderMobileMenu = () => (
     <Flex direction="column" alignItems="center" height="100vh" m="0 auto">
-      <MenuItem>Page d'accueil</MenuItem>
-      <MenuItem>À propos</MenuItem>
-      <MenuItem>Services</MenuItem>
-      <MenuItem>Contact</MenuItem>
+      {itemClick()}
     </Flex>
   );
 
   const renderDesktopMenu = () => (
     <Flex as="nav" align="center">
-      <MenuItem>Page d'accueil</MenuItem>
-      <MenuItem>À propos</MenuItem>
-      <MenuItem>Services</MenuItem>
-      <MenuItem>Contact</MenuItem>
+      {itemClick()}
     </Flex>
   );
 
