@@ -4,6 +4,7 @@ import cors from 'cors';
 require("dotenv").config();
 
 const routesDocker = require('./instances/routes');
+const routesGetCrypto = require('./cryptoData/routes/Get');
 
 const app = express();
 const port = 8080;
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/", routesDocker);
+app.use("/crypto", routesGetCrypto);
 
 app.get('/', (req : express.Request, res : express.Response) => {
   res.send('Hello, World!');
