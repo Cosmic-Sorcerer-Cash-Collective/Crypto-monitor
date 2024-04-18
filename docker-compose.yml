@@ -10,6 +10,14 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    depends_on:
+      - db
 
   db:
     container_name: database-crypto-monitor
@@ -40,6 +48,8 @@ services:
     restart: always
     volumes:
       - ./deploy/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./deploy/nginx/access.log:/var/log/nginx/access.log
+      - ./deploy/nginx/error.log:/var/log/nginx/error.log
     ports:
       - "80:80"
     depends_on:
@@ -50,7 +60,6 @@ services:
   pgadmin:
     container_name: pgadmin-crypto-monitor
     image: dpage/pgadmin4
-    restart: always
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
