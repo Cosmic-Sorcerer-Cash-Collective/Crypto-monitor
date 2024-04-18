@@ -1,1 +1,3 @@
 .env
+deploy/nginx/access.log
+deploy/nginx/error.log
