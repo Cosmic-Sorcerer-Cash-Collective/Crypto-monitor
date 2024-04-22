@@ -1,25 +1,24 @@
-import express from 'express';
-import cors from 'cors';
+import express from 'express'
+import cors from 'cors'
+import routesGetDataCrypto from './cryptoData/routes/Get'
+import routesDockerInstance from './instances/routes'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config()
 
-require("dotenv").config();
+const app = express()
+const port = 8080
 
-const routesDocker = require('./instances/routes');
-const routesGetCrypto = require('./cryptoData/routes/Get');
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-const app = express();
-const port = 8080;
+app.use('/', routesDockerInstance)
+app.use('/crypto', routesGetDataCrypto)
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-app.use("/", routesDocker);
-app.use("/crypto", routesGetCrypto);
-
-app.get('/', (req : express.Request, res : express.Response) => {
-  res.send('Hello, World!');
-});
+app.get('/', (req: express.Request, res: express.Response) => {
+  res.send('Hello, World!')
+})
 
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+  console.log(`Server is running at http://localhost:${port}`)
+})
