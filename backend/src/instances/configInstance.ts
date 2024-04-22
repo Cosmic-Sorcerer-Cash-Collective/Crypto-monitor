@@ -1,11 +1,18 @@
 interface IConfig {
-    image: string;
-    name: string;
+  image: string
+  name: string
 }
 
-export const createContainer = (config: IConfig)  => ({
-    image: config.image,
-    name: config.name,
-    Tty: true,
-    AttachStdout: true,
-});
+interface IContainer {
+  image: string
+  name: string
+  Tty: boolean
+  AttachStdout: boolean
+}
+
+export const createContainer = (config: IConfig): IContainer => ({
+  image: config.image,
+  name: config.name,
+  Tty: true,
+  AttachStdout: true
+})
