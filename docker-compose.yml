@@ -30,6 +30,7 @@ services:
     tty: true
     volumes:
       - ./deploy/database/database.sql:/docker-entrypoint-initdb.d/data.sql
+      - db_data:/var/lib/postgresql/data
     ports:
       - 5432:5432
 
@@ -67,3 +68,6 @@ services:
       - "5050:80"
     depends_on:
       - db
+
+volumes:
+  db_data:
