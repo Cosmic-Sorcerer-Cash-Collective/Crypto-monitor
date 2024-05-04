@@ -4,12 +4,12 @@ import { type CryptoData, type CryptoDataResponse } from '../api/domain'
 import { type dataBinance, type configDatabase } from '../../utils/types'
 import { FavoritePairEntity } from '../../entities'
 import { GetDataBinance } from '../../utils/GetDataBinance'
-import { type technicalIndicator } from '../../utils/TechnicalIndicator'
+import { TechnicalIndicator } from '../../utils/TechnicalIndicator'
 
 export class CryptoDataPostgresql implements CryptoData {
   private readonly client: DataSource
   private readonly binance: GetDataBinance
-  private readonly technicalIndicator: technicalIndicator
+  private readonly technicalIndicator: TechnicalIndicator
   constructor (config: configDatabase) {
     this.client = new DataSource({
       type: 'postgres',
@@ -26,6 +26,7 @@ export class CryptoDataPostgresql implements CryptoData {
     this.client.initialize().catch((error) => {
       console.error('Error connecting to the database', error)
     })
+    this.technicalIndicator = new TechnicalIndicator()
   }
 
   async getCryptoSpecificData (pair: string = 'BTCUSDT', interval: string = '1h', limit: number = 50): Promise<CryptoDataResponse> {
@@ -36,12 +37,12 @@ export class CryptoDataPostgresql implements CryptoData {
       volume,
       data: data[data.length - 1],
       technicalAnalysis: {
-        sma: this.technicalIndicator.calculateSMA(data, 25),
-        rsi: this.technicalIndicator.calculateRSI(data, 14),
-        macd: this.technicalIndicator.calculateMACD(data),
+        sma: this.technicalIndicator.calculateSMA(data.slice(data.length - 26), 25),
+        rsi: this.technicalIndicator.calculateRSI(data.slice(data.length - 15), 14),
+        macd: this.technicalIndicator.calculateMACD(data.slice(data.length - 26)),
         fibonacci: {
-          support: this.technicalIndicator.calculateFan(data),
-          resistance: this.technicalIndicator.calculateRetracement(data)
+          support: this.technicalIndicator.calculateFan(data.slice(data.length - 21)),
+          resistance: this.technicalIndicator.calculateRetracement(data.slice(data.length - 21))
         }
       }
     }

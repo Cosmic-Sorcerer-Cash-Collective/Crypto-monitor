@@ -1,7 +1,7 @@
 import { type macdIndicator } from '../cryptoData/api/domain'
 import { type typeFibonacci, type dataBinance } from './types'
 
-export class technicalIndicator {
+export class TechnicalIndicator {
   public calculateSMA (data: dataBinance[], period: number): number {
     const sum = data.reduce((acc: any, curr: dataBinance) => acc + parseFloat(curr.close), 0)
     return sum / period

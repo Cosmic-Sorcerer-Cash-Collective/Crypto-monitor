@@ -13,7 +13,6 @@ const database = new CryptoDataPostgresql({
 
 routesGetDataCrypto.get('/info/:pair', (req: express.Request, res: express.Response) => {
   const pair = req.params.pair
-
   resolverGetCryptoSpecificData(database, pair, '1h', 50)
     .then((data) => res.status(200).json(data))
     .catch((error) => res.status(500).json({ error }))
