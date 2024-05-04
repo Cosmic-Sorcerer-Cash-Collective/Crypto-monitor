@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from "react";;
+import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { useFetch } from "../utils/hooks/useFetch";
 import { Instance, getInstancesUrl } from "../utils";
 

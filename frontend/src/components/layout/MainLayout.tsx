@@ -8,7 +8,7 @@ interface Props {
 
 export function MainLayout({ children }: Props) {
   return (
-    <Box>
+    <Box minW={320} maxW="100%" mx="auto">
         <Header />
         <Flex as="main" direction="column" align="center" mt={8}>
             {children}

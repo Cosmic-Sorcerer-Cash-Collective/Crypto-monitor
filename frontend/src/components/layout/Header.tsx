@@ -45,17 +45,23 @@ export function Header() {
 
   const itemClick = () => (
     <>
-      <Box onClick={() => navigate('/')}>
+      <Box onClick={() => navigate('/')} width="100%">
         <MenuItem>Home</MenuItem>
       </Box>
-      <Box onClick={() => navigate('/contact')}>
+      <Box onClick={() => navigate('/bot')} width="100%">
+        <MenuItem>Bot</MenuItem>
+      </Box>
+      <Box onClick={() => navigate('/Crypto')} width="100%">
+        <MenuItem>Crypto</MenuItem>
+      </Box>
+      <Box onClick={() => navigate('/contact')} width="100%">
         <MenuItem>Contact</MenuItem>
       </Box>
     </>
   );
 
   const renderMobileMenu = () => (
-    <Flex direction="column" alignItems="center" height="100vh" m="0 auto">
+    <Flex direction="column" alignItems="center" height="100%" m="0 auto">
       {itemClick()}
     </Flex>
   );
@@ -81,8 +87,8 @@ export function Header() {
         align="center"
         justify="space-between"
       >
-        <Text fontSize="2xl" fontWeight="bold">
-          Crypto Monitor
+        <Text fontSize="2xl" fontWeight="bold" onClick={() => navigate('/')} as="nav">
+          CryptoMonitor
         </Text>
         {isMobileView ? (
           <>
@@ -91,12 +97,14 @@ export function Header() {
               aria-label="Ouvrir le menu"
               icon={<HamburgerIcon />}
               onClick={onOpen}
+              variant="ghost"
+              colorScheme='white'
             />
             <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
               <DrawerOverlay />
               <DrawerContent bgGradient="linear(to-r, teal.500, teal.300)">
                 <DrawerCloseButton />
-                <DrawerHeader>Menu</DrawerHeader>
+                <DrawerHeader fontSize="2xl" fontWeight="bold" color='white' >Menu</DrawerHeader>
                 <DrawerBody>{renderMobileMenu()}</DrawerBody>
               </DrawerContent>
             </Drawer>
