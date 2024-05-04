@@ -9,21 +9,19 @@ body {
   cursor: default;
 }
 
-/* Stylisation de la barre de défilement */
 .scroll-container {
-  overflow-y: auto; /* Activer la barre de défilement verticale */
+  overflow-y: auto;
 }
 
-/* Personnalisation de la barre de défilement */
 .scroll-container::-webkit-scrollbar {
-  width: 8px; /* Largeur de la barre de défilement */
+  width: 8px;
 }
 
 .scroll-container::-webkit-scrollbar-thumb {
-  background-color: #888; /* Couleur de la poignée de la barre de défilement */
-  border-radius: 4px; /* Rayon de la bordure de la poignée */
+  background-color: #888;
+  border-radius: 4px;
 }
 
 .scroll-container::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Couleur de la poignée de la barre de défilement au survol */
+  background-color: #555;
 }
