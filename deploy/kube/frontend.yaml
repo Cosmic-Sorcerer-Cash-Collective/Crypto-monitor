@@ -1,0 +1,43 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  crypto-frontend
+spec:
+  selector:
+    app:  crypto-frontend
+  type:  LoadBalancer
+  ports:
+  - name:  http
+    port:  80
+    targetPort: 5173
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  crypto-frontend
+  labels:
+    name:  crypto-frontend
+spec:
+  replicas:  1
+  selector:
+    matchLabels:
+      app:  crypto-frontend
+  template:
+    metadata:
+      labels:
+        app:  crypto-frontend
+    spec:
+      containers:
+      - name:  crypto-frontend
+        image:  ghcr.io/cosmic-sorcerer-cash-collective/crypto-monitor-frontend:latest
+        ports:
+        - containerPort:  5173
+        resources:
+          limits:
+            memory:  128Mi
+            cpu:  500m
+          requests:
+            memory:  64Mi
+            cpu:  250m
